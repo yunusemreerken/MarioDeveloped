@@ -1,2 +1,0 @@
-print("PATRON")
-print("cloud")
