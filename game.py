@@ -1,13 +1,16 @@
 import pygame
+import os
 
-    
+	
 def display(screen_select):
 	# initializing the constructor 
 	pygame.init() 
 
+
+	karakter_path = os.path.join(os.path.dirname(__file__), "assets", "characters", "hero.png")
+	karakter = pygame.image.load(karakter_path).convert_alpha()
 	#ana menu
 	main_menu = ["menu", "start", "learn","creator","exit"]
-	creator_list = ["Emre E.", "Enes Z.", "Yusuf O.","Nurullah K.","Berat C."]
 
 	
 	#color brick
@@ -57,6 +60,7 @@ def display(screen_select):
 			if ev.type == pygame.MOUSEBUTTONDOWN:
 				if width/2-75 <= mouse[0] <= width/2+65 and height/2-100 <= mouse[1] <= height/2-50:
 					screen_select = main_menu.index("menu")
+
 					print(main_menu[screen_select])
 					
 			if ev.type == pygame.MOUSEBUTTONDOWN:
@@ -82,7 +86,7 @@ def display(screen_select):
 					pygame.quit() 
 					
 		# fills the screen with a color 
-		screen.fill("aquamarine") 
+		screen.fill("aquamarine")
 		
 		# stores the (x,y) coordinates into 
 		# the variable as a tuple 
@@ -99,6 +103,8 @@ def display(screen_select):
 			screen.blit(learn , (width/2-75,height/2)) 
 			screen.blit(creator , (width/2-75,height/2+50)) 
 			screen.blit(exit , (width/2-75,height/2+100))
+			screen.blit(karakter,(100,100))
+
 		elif screen_select==1:
 				pygame.draw.rect(screen,brick,(0,0,100,50))
 				pygame.draw.rect(screen,brick,(0,150,100,50))
