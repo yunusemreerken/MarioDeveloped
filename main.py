@@ -20,13 +20,17 @@ blue = (135, 206, 250) # Gökyüzü mavisi
 try:
     player_image_filename = "assets/characters/hero.png"
     player_image = pygame.image.load(player_image_filename).convert_alpha()
+    map_image_filename = "assets/maps/map-forrest.png"
+    map_image = pygame.image.load(map_image_filename).convert_alpha()
 except pygame.error as e:
     print(f"Oyuncu görseli yüklenemedi: {player_image_filename} - Hata: {e}")
+    print(f"Map görseli yüklenemedi: {map_image_filename} - Hata: {e}")
     pygame.quit()
     exit()
 
 # 5. Oyuncu Ayarları ve Fizik Değişkenleri
 player_rect = player_image.get_rect()
+map_rect = map_image.get_rect()
 
 # Fizik/Hareket Değişkenleri
 player_speed = 5        # Yatay hız
@@ -78,8 +82,12 @@ while running:
 
     # 10. Ekranı Çizme
     screen.fill(blue)
-    screen.blit(player_image, player_rect)
 
+    
+    #image resize yapılcak width height hatalı
+    screen.blit(map_image, map_rect) 
+    
+    screen.blit(player_image, player_rect)
     # 11. Ekranı Güncelleme
     pygame.display.flip()
 
