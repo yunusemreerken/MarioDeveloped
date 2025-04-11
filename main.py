@@ -18,19 +18,27 @@ blue = (135, 206, 250) # Gökyüzü mavisi
 
 # 4. Oyuncu Görselini Yükleme
 try:
-    player_image_filename = "assets/characters/hero.png"
-    player_image = pygame.image.load(player_image_filename).convert_alpha()
     map_image_filename = "assets/maps/map-forrest.png"
+    player_image_filename = "assets/characters/hero.png"
+    enemy_image_filename = "assets/characters/enemy.png"
+    
+    player_image = pygame.image.load(player_image_filename).convert_alpha()
+    enemy_image = pygame.image.load(enemy_image_filename).convert_alpha()
+   
     map_image = pygame.image.load(map_image_filename).convert_alpha()
+    map_image_resized = pygame.transform.scale(map_image, (screen_width, screen_height))
+
 except pygame.error as e:
     print(f"Oyuncu görseli yüklenemedi: {player_image_filename} - Hata: {e}")
     print(f"Map görseli yüklenemedi: {map_image_filename} - Hata: {e}")
+    print(f"Enemy görseli yüklenemedi: {enemy_image_filename} - Hata: {e}")
     pygame.quit()
     exit()
 
 # 5. Oyuncu Ayarları ve Fizik Değişkenleri
 player_rect = player_image.get_rect()
-map_rect = map_image.get_rect()
+map_rect = map_image_resized.get_rect()
+enemy_rect = enemy_image.get_rect()
 
 # Fizik/Hareket Değişkenleri
 player_speed = 5        # Yatay hız
@@ -42,6 +50,8 @@ ground_level = screen_height - 50 # Zeminin y koordinatı (görselin altı bu se
 
 # Başlangıç pozisyonunu ayarla (tam zeminde)
 player_rect.bottom = ground_level
+enemy_rect.centerx= ground_level +100
+enemy_rect.centery = ground_level -50
 
 
 # 6. Oyun Döngüsü
@@ -85,8 +95,8 @@ while running:
 
     
     #image resize yapılcak width height hatalı
-    screen.blit(map_image, map_rect) 
-    
+    screen.blit(map_image_resized, map_rect) 
+    screen.blit(enemy_image, enemy_rect)
     screen.blit(player_image, player_rect)
     # 11. Ekranı Güncelleme
     pygame.display.flip()
